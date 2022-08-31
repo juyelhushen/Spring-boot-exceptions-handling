@@ -15,11 +15,15 @@
   more specifically if i say then to map a exceptions status code how to response,rest we will see in this tuitorial.
   
 # @ExceptionsHandler  
-  
+->The @ExceptionHandler is an annotation used to handle the specific exceptions and sending the custom responses to the client.
+  Define a class that extends the RuntimeException class. You can define the @ExceptionHandler method to handle the specific exceptions. 
   
 # @ControllerAdvice
-->
+->@ControllerAdvice is a specialization of the @Component annotation which allows to handle exceptions across the whole application in one global handling component. It can be viewed as an interceptor of exceptions thrown by methods annotated with @RequestMapping and similar.
 
+# @ControllerAdvice VS @ExceptionHandler
+-> A @ExceptionHandler is local to a controller : only exceptions from this controller is routed to his @ExceptionHandler
+   But a @ControllerAdvice is global : you can have a centralized way to handle exceptions, binding, etc. it applies to all the defined controller.
 
    
    
