@@ -9,9 +9,16 @@
    Let'head on to this demo moto.
    
 -> Before proceeding with exception handling, let us gain an understanding on the following annotations.such as
-# ResponseStatus
-# ControllerAdvice
-# ExceptionsHandler
+# @ResponseStatus
+->We can use @ResponseStatus to mark a method or an exception class with a status code and reason that should be returned. 
+  On invoking the marked handler method or when a specified exception is thrown, the HTTP status will be set to the one defined using @ResponseStatus annotation.
+  more specifically if i say then to map a exceptions status code how to response,rest we will see in this tuitorial.
+  
+# @ExceptionsHandler  
+  
+  
+# @ControllerAdvice
+->
 
 
    
