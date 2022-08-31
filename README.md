@@ -8,5 +8,11 @@
    An exception normally disrupts the normal flow of the application; that is why we need to handle exceptions.
    Let'head on to this demo moto.
    
+-> Before proceeding with exception handling, let us gain an understanding on the following annotations.such as
+# ResponseStatus
+# ControllerAdvice
+# ExceptionsHandler
+
+
    
    
