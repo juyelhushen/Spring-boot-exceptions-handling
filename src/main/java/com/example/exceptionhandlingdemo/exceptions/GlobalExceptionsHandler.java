@@ -32,6 +32,12 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
          return new ResponseEntity<ErrorDetails> (error,HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ErrorDetails> handleSQLException(NullPointerException ex, WebRequest request){
+        ErrorDetails error = new ErrorDetails(ex.getMessage(), 500,new Date());
+        return new ResponseEntity<ErrorDetails>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<ErrorDetails> handleSQLException(SQLException ex,WebRequest request){
         ErrorDetails error = new ErrorDetails(ex.getMessage(), 500,new Date());
