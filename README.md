@@ -1,29 +1,74 @@
-# Custome and Global-Exceptions handling demo
 
-# Exceptions overview
-=> Exception Handling is a mechanism to handle runtime errors such as ClassNotFoundException, IOException, SQLException, RemoteException, etc.
+## Global Exception Handling
 
-# Why should we handle exceptions?
- =>The core reason of exception handling is to maintain the normal flow of the application.
-   An exception normally disrupts the normal flow of the application; that is why we need to handle exceptions.
-   Let'head on to this demo moto.
-   
--> Before proceeding with exception handling, let us gain an understanding on the following annotations.such as
-# @ResponseStatus
-->We can use @ResponseStatus to mark a method or an exception class with a status code and reason that should be returned. 
-  On invoking the marked handler method or when a specified exception is thrown, the HTTP status will be set to the one defined using @ResponseStatus annotation.
-  more specifically if i say then to map a exceptions status code how to response,rest we will see in this tuitorial.
-  
-# @ExceptionsHandler  
-->The @ExceptionHandler is an annotation used to handle the specific exceptions and sending the custom responses to the client.
-  Define a class that extends the RuntimeException class. You can define the @ExceptionHandler method to handle the specific exceptions. 
-  
-# @ControllerAdvice
-->@ControllerAdvice is a specialization of the @Component annotation which allows to handle exceptions across the whole application in one global handling component. It can be viewed as an interceptor of exceptions thrown by methods annotated with @RequestMapping and similar.
+### 1. **GlobalExceptionsHandler Class**
 
-# @ControllerAdvice VS @ExceptionHandler
--> A @ExceptionHandler is local to a controller : only exceptions from this controller is routed to his @ExceptionHandler
-   But a @ControllerAdvice is global : you can have a centralized way to handle exceptions, binding, etc. it applies to all the defined controller.
+The `GlobalExceptionsHandler` class handles exceptions globally across all controllers. This class extends `ResponseEntityExceptionHandler` and uses `@RestControllerAdvice` to manage exceptions.
 
-   
-   
+- **`@RestControllerAdvice`**: This annotation indicates that the class provides advice across the entire application.
+- **`@ExceptionHandler`**: This annotation is used to handle specific exceptions and return custom error responses.
+
+### Example Methods in GlobalExceptionsHandler
+
+- **`resourceNotFound()`**: Handles custom `ResourceNotFound` exceptions.
+- **`handleResponseStatusException()`**: Handles `ResponseStatusException` and returns a `404 Not Found` status.
+- **`handleSQLException()`**: Handles `SQLException` and `NullPointerException` and returns a `500 Internal Server Error` status.
+- **`handlerMethodArgumentTypeMismatchException()`**: Handles `MethodArgumentTypeMismatchException` and returns a `400 Bad Request` status.
+- **`handleExceptionclass()`**: Handles all other generic exceptions and returns a `503 Service Unavailable` status.
+
+### 2. **Custom Exception Classes**
+
+- **`ResourceNotFound`**: A custom exception class annotated with `@ResponseStatus(HttpStatus.NOT_FOUND)`. It is used when a requested resource is not found.
+
+### Example of Custom Exception
+
+```java
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFound extends RuntimeException {
+    public ResourceNotFound(String message) {
+        super(message);
+    }
+}
+```
+### Error Response Format
+ - The error response is encapsulated in the ErrorDetails class, which includes:
+
+ - **` Error Message (error)`**: A description of the error.
+ - **`Status Code (code)`**: The HTTP status code.
+- **`Timestamp (timestamp)`**: The date and time when the error occurred.
+### Example ErrorDetails Class
+```angular2html
+public class ErrorDetails {
+    private String error;
+    private int code;
+    private Date timestamp;
+
+    public ErrorDetails(String error, int code, Date timestamp) {
+        this.error = error;
+        this.code = code;
+        this.timestamp = timestamp;
+    }
+
+    // Getters and Setters...
+}
+
+```
+
+### How to run
+- Clone the Repository
+```bash 
+git clone https://github.com/juyel/exception-handling-demo.git
+cd exception-handling-demo
+
+```
+- Build the Project
+```bash 
+mvn clean install
+- ```
+- Run the Application
+```bash
+mvn spring-boot:run
+- ```
+
+### Contributing
+Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes
