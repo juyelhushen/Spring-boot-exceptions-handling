@@ -65,10 +65,11 @@ cd exception-handling-demo
 ```bash 
 mvn clean install
 - ```
+
 - Run the Application
 ```bash
 mvn spring-boot:run
-- ```
+```
 
 ### Contributing
 Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or bug fixes
